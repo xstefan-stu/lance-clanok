@@ -1,0 +1,60 @@
+\documentclass[11pt,a4paper,twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[slovak]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\title{\textbf{Pasívny audit sieťovej bezpečnosti a AI filtrácia nepresností v kontexte smernice NIS2}}
+
+\author{
+    \textbf{Lukáš Štefan, Jakub Šima, Vincent Gavenda,}\\
+    \textbf{Rony Šoóš, Oliver Šutara}\\
+    \vspace{0.3em}\\
+    Fakulta informatiky a informačných technológií STU v Bratislave\\
+    \texttt{xstefan@stuba.sk}
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Európska smernica NIS2 zavádza prísne požiadavky na kybernetickú bezpečnosť pre tisíce stredne veľkých podnikov. Tradičné metódy auditu však trpia vysokou chybovosťou alebo právnymi rizikami spojenými s invazívnymi skenmi. Tento prehľadový článok analyzuje súčasný stav v oblasti neinvazívneho auditu sieťových protokolov (DNS, DMARC, SSL/TLS) a navrhuje architektúru systému LANCE. Riešenie kombinuje pasívny zber verejných dát s AI triážou na zníženie miery falošných poplachov pod 10\,\% pri dodržaní pravidiel GDPR.
+\end{abstract}
+
+\section{Úvod}
+Smernica NIS2 \cite{nis2directive} rozširuje povinnosti kybernetickej bezpečnosti na stredné podniky v kľúčových sektoroch. Organizácie čelia výzve, ako efektívne vyhodnotiť stav svojej infraštruktúry.
+
+Cieľom tohto článku je zmapovať metódy pasívneho prieskumu a navrhnúť mechanizmus filtrácie nepresností pomocou umelej inteligencie.
+
+\section{Súčasný stav v oblasti}
+Pasívny prieskum spolieha na analýzu dát, ktoré cieľový systém verejne publikuje.
+
+\subsection{Protokoly e-mailovej bezpečnosti}
+Nastavenia DMARC, SPF a DKIM sú kľúčové pre prevenciu spoofingu. Podľa štúdií \cite{valimail2023, cloudflare2024} väčšina firiem nemá DMARC nastavený v režime presadzovania (\texttt{p=reject}).
+
+\subsection{Bezpečnostné hlavičky a SSL/TLS}
+Absencia HTTP hlavičiek ako HSTS či CSP \cite{mozillaobs, securityheaders} indikuje medzery v správe webových aplikácií.
+
+\subsection{Právny rámec (GDPR)}
+Pasívny zber DNS a verejných údajov z webov spĺňa podmienky článku 6 ods. 1 písm. f) GDPR \cite{gdpr2016} a nevyžaduje invazívne zásahy do infraštruktúry.
+
+\section{Architektúra a metodika LANCE}
+Navrhnutá architektúra pozostáva z modulu pasívneho skenovania, výpočtu skóre dôveryhodnosti a AI filtrácie.
+
+\section{Vyhodnotenie a diskusia}
+Porovnanie s existujúcimi nástrojmi ukazuje, že využitie LLM triáže výrazne znižuje prácnosť audítorov pri overovaní nálezov.
+
+\section{Záver}
+Navrhnutý prístup umožňuje bezpečné a presné vyhodnotenie sieťovej bezpečnosti podľa NIS2 bez nutnosti invazívnych testov.
+
+\bibliographystyle{IEEEtran}
+\bibliography{literatura}
+
+\end{document}
